@@ -1,0 +1,42 @@
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/style-vis.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/client/lib/head.load.min.js"></script>
+<script type="text/javascript">
+
+    var bratLocation = 'https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog';
+    head.js(
+        // External libraries
+        bratLocation + '/client/lib/jquery-1.7.1.min.js',
+        bratLocation + '/client/lib/jquery.svg.min.js',
+        bratLocation + '/client/lib/jquery.svgdom.min.js',
+
+        // brat helper modules
+        bratLocation + '/client/src/configuration.js',
+        bratLocation + '/client/src/util.js',
+        bratLocation + '/client/src/annotation_log.js',
+        bratLocation + '/client/lib/webfont.js',
+
+        // brat modules
+        bratLocation + '/client/src/dispatcher.js',
+        bratLocation + '/client/src/url_monitor.js',
+        bratLocation + '/client/src/visualizer.js'
+    );
+
+    var webFontURLs = [
+        bratLocation + '/static/fonts/Astloch-Bold.ttf',
+        bratLocation + '/static/fonts/PT_Sans-Caption-Web-Regular.ttf',
+        bratLocation + '/static/fonts/Liberation_Sans-Regular.ttf'
+    ];
+
+
+    var collData = {"entity_types": [{"type": "ORG", "labels": ["ORG"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "DATE", "labels": ["DATE"], "bgColor": "#9AFFE6", "borderColor": "darken"}], "relation_types": []}
+    var docData = {"entities": [["T0", "ORG", [[0, 39]]], ["T1", "DATE", [[40, 49]]]], "relations": [], "text": "The China National Space Administration is working on a project , whose details might be declared to the public next year"}
+
+    head.ready(function() {
+        // Evaluate the code from the example (with ID
+        // 'embedding-entity-example') and show it to the user
+        Util.embed('embedding-entity-example', $.extend({}, collData),
+                $.extend({}, docData), webFontURLs);
+    });
+</script>
+<div id="embedding-entity-example"></div>
