@@ -5,8 +5,9 @@
 import spacy
 import json
 import uuid
+from typing import Union, List
 
-BRAT_HTML_TEMPLATE = """
+BRAT_HTML_HEADER = """
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/style-vis.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/client/lib/head.load.min.js"></script>
 <script type="text/javascript">
@@ -36,15 +37,20 @@ BRAT_HTML_TEMPLATE = """
         bratLocation + '/static/fonts/Liberation_Sans-Regular.ttf'
     ];
 
-
-    var collData = {0}
-    var docData = {1}
+    var collData = {}
+    var docData = {}
+</script>
+"""
+BRAT_HTML_TEMPLATE = """
+<script type="text/javascript">
+    collData["{2}"] = {0}
+    docData["{2}"] = {1}
 
     head.ready(function() {
         // Evaluate the code from the example (with ID
         // 'embedding-entity-example') and show it to the user
-        Util.embed('{2}', $.extend({}, collData),
-                $.extend({}, docData), webFontURLs);
+        Util.embed('{2}', $.extend({}, collData["{2}"]),
+                $.extend({}, docData["{2}"]), webFontURLs);
     });
 </script>
 <div id="{2}"></div>
@@ -108,18 +114,21 @@ def nerColor(nerTag):
 
 
 def lang2spacymodels(lang:str):
+    """
+    Change default spacy models here
+    """
     if lang == 'en':
-        return 'en_core_web_lg'
+        return 'en_core_web_sm'
     elif lang == 'zh':
-        return 'zh_core_web_lg'
+        return 'zh_core_web_sm'
     elif lang == 'ja':
-        return 'ja_core_news_lg'
+        return 'ja_core_news_sm'
     elif lang == 'de':
-        return 'de_core_news_lg'
+        return 'de_core_news_sm'
     elif lang == 'fr':
-        return 'fr_core_news_lg'
+        return 'fr_core_news_sm'
     else:
-        return 'en_core_web_lg'
+        return 'en_core_web_sm'
 
 def doc2dict(doc):
     sent_dict = {'sentence': doc.text, 'tokens': []}
@@ -204,7 +213,7 @@ def get_brat_data(doc, object="dep"):
             cur_pos += len(ent_text) + 1
     return docData, collData
 
-def render_spacybrat(text, save_path=None, lang='en', object='dep', id=None):
+def render_spacybrat(text:Union[List[str], str], save_path=None, lang='en', object='dep', id=None):
     """
     visualize dependency tree using
     spaCy for dependency parsing
@@ -212,14 +221,18 @@ def render_spacybrat(text, save_path=None, lang='en', object='dep', id=None):
     """
     assert object in ['dep', 'ner', 'pos']
     nlp = spacy.load(lang2spacymodels(lang))
-    doc = nlp(text)
-    docData, collData = get_brat_data(doc, object=object)
-    html = BRAT_HTML_TEMPLATE
-    if id is None:
-        id = str(uuid.uuid4())
-    html = html.replace('{0}', json.dumps(collData))
-    html = html.replace('{1}', json.dumps(docData))
-    html = html.replace('{2}', id)
+    if not isinstance(text, list):
+        text = [text]
+    html = BRAT_HTML_HEADER
+    for i, t in enumerate(text):
+        doc = nlp(t)
+        print(t)
+        docData, collData = get_brat_data(doc, object=object)
+        _html = BRAT_HTML_TEMPLATE
+        _html = _html.replace('{0}', json.dumps(collData))
+        _html = _html.replace('{1}', json.dumps(docData))
+        _html = _html.replace('{2}', id or str(uuid.uuid4()))
+        html += "\n" + _html
     if save_path is not None:
         with open(save_path, 'w') as f:
             f.write(html)

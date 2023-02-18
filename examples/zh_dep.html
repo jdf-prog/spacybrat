@@ -1,0 +1,47 @@
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/style-vis.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/client/lib/head.load.min.js"></script>
+<script type="text/javascript">
+
+    var bratLocation = 'https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog';
+    head.js(
+        // External libraries
+        bratLocation + '/client/lib/jquery-1.7.1.min.js',
+        bratLocation + '/client/lib/jquery.svg.min.js',
+        bratLocation + '/client/lib/jquery.svgdom.min.js',
+
+        // brat helper modules
+        bratLocation + '/client/src/configuration.js',
+        bratLocation + '/client/src/util.js',
+        bratLocation + '/client/src/annotation_log.js',
+        bratLocation + '/client/lib/webfont.js',
+
+        // brat modules
+        bratLocation + '/client/src/dispatcher.js',
+        bratLocation + '/client/src/url_monitor.js',
+        bratLocation + '/client/src/visualizer.js'
+    );
+
+    var webFontURLs = [
+        bratLocation + '/static/fonts/Astloch-Bold.ttf',
+        bratLocation + '/static/fonts/PT_Sans-Caption-Web-Regular.ttf',
+        bratLocation + '/static/fonts/Liberation_Sans-Regular.ttf'
+    ];
+
+    var collData = {}
+    var docData = {}
+</script>
+
+
+<script type="text/javascript">
+    collData["24e31007-5647-44a5-9f63-a925c4808b65"] = {"entity_types": [{"type": "VERB", "labels": ["VERB"], "bgColor": "#ADF6A2", "borderColor": "darken"}, {"type": "NOUN", "labels": ["NOUN"], "bgColor": "#A4BCED", "borderColor": "darken"}, {"type": "ADP", "labels": ["ADP"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "PUNCT", "labels": ["PUNCT"], "bgColor": "#CCDAF6", "borderColor": "darken"}]}
+    docData["24e31007-5647-44a5-9f63-a925c4808b65"] = {"entities": [["T0", "VERB", [[0, 1]]], ["T1", "NOUN", [[2, 4]]], ["T2", "ADP", [[5, 6]]], ["T3", "NOUN", [[7, 9]]], ["T4", "PUNCT", [[10, 11]]], ["T5", "ADP", [[12, 13]]], ["T6", "VERB", [[14, 16]]], ["T7", "ADP", [[17, 18]]], ["T8", "NOUN", [[19, 21]]]], "relations": [["R1", "dobj", [["head", "T0"], ["child", "T1"]]], ["R2", "case", [["head", "T3"], ["child", "T2"]]], ["R3", "nmod:prep", [["head", "T0"], ["child", "T3"]]], ["R4", "punct", [["head", "T3"], ["child", "T4"]]], ["R5", "case", [["head", "T6"], ["child", "T5"]]], ["R6", "dep", [["head", "T3"], ["child", "T6"]]], ["R7", "case", [["head", "T8"], ["child", "T7"]]], ["R8", "conj", [["head", "T0"], ["child", "T8"]]]], "text": "\u7ed9 \u65f6\u5149 \u4ee5 \u751f\u547d \uff0c \u7ed9 \u5c81\u6708 \u4ee5 \u6587\u660e"}
+
+    head.ready(function() {
+        // Evaluate the code from the example (with ID
+        // 'embedding-entity-example') and show it to the user
+        Util.embed('24e31007-5647-44a5-9f63-a925c4808b65', $.extend({}, collData["24e31007-5647-44a5-9f63-a925c4808b65"]),
+                $.extend({}, docData["24e31007-5647-44a5-9f63-a925c4808b65"]), webFontURLs);
+    });
+</script>
+<div id="24e31007-5647-44a5-9f63-a925c4808b65"></div>

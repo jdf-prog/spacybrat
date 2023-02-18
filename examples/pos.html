@@ -28,15 +28,34 @@
         bratLocation + '/static/fonts/Liberation_Sans-Regular.ttf'
     ];
 
+    var collData = {}
+    var docData = {}
+</script>
 
-    var collData = {"entity_types": [{"type": "DET", "labels": ["DET"], "bgColor": "#CCADF6", "borderColor": "darken"}, {"type": "PROPN", "labels": ["PROPN"], "bgColor": "#CCDAF6", "borderColor": "darken"}, {"type": "AUX", "labels": ["AUX"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "VERB", "labels": ["VERB"], "bgColor": "#ADF6A2", "borderColor": "darken"}, {"type": "ADP", "labels": ["ADP"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "NOUN", "labels": ["NOUN"], "bgColor": "#A4BCED", "borderColor": "darken"}, {"type": "PUNCT", "labels": ["PUNCT"], "bgColor": "#CCDAF6", "borderColor": "darken"}, {"type": "ADJ", "labels": ["ADJ"], "bgColor": "#E3E3E3", "borderColor": "darken"}]}
-    var docData = {"entities": [["T0", "DET", [[0, 3]]], ["T1", "PROPN", [[4, 9]]], ["T2", "PROPN", [[10, 18]]], ["T3", "PROPN", [[19, 24]]], ["T4", "PROPN", [[25, 39]]], ["T5", "AUX", [[40, 42]]], ["T6", "VERB", [[43, 50]]], ["T7", "ADP", [[51, 53]]], ["T8", "DET", [[54, 55]]], ["T9", "NOUN", [[56, 63]]], ["T10", "PUNCT", [[64, 65]]], ["T11", "DET", [[66, 71]]], ["T12", "NOUN", [[72, 79]]], ["T13", "AUX", [[80, 85]]], ["T14", "AUX", [[86, 88]]], ["T15", "VERB", [[89, 97]]], ["T16", "ADP", [[98, 100]]], ["T17", "DET", [[101, 104]]], ["T18", "NOUN", [[105, 111]]], ["T19", "ADJ", [[112, 116]]], ["T20", "NOUN", [[117, 121]]]], "relations": [], "text": "The China National Space Administration is working on a project , whose details might be declared to the public next year"}
+
+<script type="text/javascript">
+    collData["5f57a2d5-b528-4ffd-860f-7f74b943f88f"] = {"entity_types": [{"type": "PRON", "labels": ["PRON"], "bgColor": "#CCDAF6", "borderColor": "darken"}, {"type": "AUX", "labels": ["AUX"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "DET", "labels": ["DET"], "bgColor": "#CCADF6", "borderColor": "darken"}, {"type": "NOUN", "labels": ["NOUN"], "bgColor": "#A4BCED", "borderColor": "darken"}]}
+    docData["5f57a2d5-b528-4ffd-860f-7f74b943f88f"] = {"entities": [["T0", "PRON", [[0, 4]]], ["T1", "AUX", [[5, 7]]], ["T2", "DET", [[8, 9]]], ["T3", "NOUN", [[10, 18]]]], "relations": [], "text": "This is a sentence"}
 
     head.ready(function() {
         // Evaluate the code from the example (with ID
         // 'embedding-entity-example') and show it to the user
-        Util.embed('355dabe2-3243-4df8-80a9-6a6073564a10', $.extend({}, collData),
-                $.extend({}, docData), webFontURLs);
+        Util.embed('5f57a2d5-b528-4ffd-860f-7f74b943f88f', $.extend({}, collData["5f57a2d5-b528-4ffd-860f-7f74b943f88f"]),
+                $.extend({}, docData["5f57a2d5-b528-4ffd-860f-7f74b943f88f"]), webFontURLs);
     });
 </script>
-<div id="355dabe2-3243-4df8-80a9-6a6073564a10"></div>
+<div id="5f57a2d5-b528-4ffd-860f-7f74b943f88f"></div>
+
+
+<script type="text/javascript">
+    collData["1677ca21-2f1c-4f65-b6f8-e20bae76b7e5"] = {"entity_types": [{"type": "PRON", "labels": ["PRON"], "bgColor": "#CCDAF6", "borderColor": "darken"}, {"type": "AUX", "labels": ["AUX"], "bgColor": "#E3E3E3", "borderColor": "darken"}, {"type": "DET", "labels": ["DET"], "bgColor": "#CCADF6", "borderColor": "darken"}, {"type": "NOUN", "labels": ["NOUN"], "bgColor": "#A4BCED", "borderColor": "darken"}]}
+    docData["1677ca21-2f1c-4f65-b6f8-e20bae76b7e5"] = {"entities": [["T0", "PRON", [[0, 4]]], ["T1", "AUX", [[5, 7]]], ["T2", "DET", [[8, 15]]], ["T3", "NOUN", [[16, 24]]]], "relations": [], "text": "This is another sentence"}
+
+    head.ready(function() {
+        // Evaluate the code from the example (with ID
+        // 'embedding-entity-example') and show it to the user
+        Util.embed('1677ca21-2f1c-4f65-b6f8-e20bae76b7e5', $.extend({}, collData["1677ca21-2f1c-4f65-b6f8-e20bae76b7e5"]),
+                $.extend({}, docData["1677ca21-2f1c-4f65-b6f8-e20bae76b7e5"]), webFontURLs);
+    });
+</script>
+<div id="1677ca21-2f1c-4f65-b6f8-e20bae76b7e5"></div>
