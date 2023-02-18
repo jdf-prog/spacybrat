@@ -4,6 +4,7 @@
 
 import spacy
 import json
+import uuid
 
 BRAT_HTML_TEMPLATE = """
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/nlplab/brat@v1.3_Crunchy_Frog/style-vis.css"/>
@@ -42,11 +43,11 @@ BRAT_HTML_TEMPLATE = """
     head.ready(function() {
         // Evaluate the code from the example (with ID
         // 'embedding-entity-example') and show it to the user
-        Util.embed('embedding-entity-example', $.extend({}, collData),
+        Util.embed('{2}', $.extend({}, collData),
                 $.extend({}, docData), webFontURLs);
     });
 </script>
-<div id="embedding-entity-example"></div>
+<div id="{2}"></div>
 """
 
 
@@ -203,7 +204,7 @@ def get_brat_data(doc, object="dep"):
             cur_pos += len(ent_text) + 1
     return docData, collData
 
-def render_spacybrat(text, save_path=None, lang='en', object='dep'):
+def render_spacybrat(text, save_path=None, lang='en', object='dep', id=None):
     """
     visualize dependency tree using
     spaCy for dependency parsing
@@ -214,8 +215,11 @@ def render_spacybrat(text, save_path=None, lang='en', object='dep'):
     doc = nlp(text)
     docData, collData = get_brat_data(doc, object=object)
     html = BRAT_HTML_TEMPLATE
+    if id is None:
+        id = str(uuid.uuid4())
     html = html.replace('{0}', json.dumps(collData))
     html = html.replace('{1}', json.dumps(docData))
+    html = html.replace('{2}', id)
     if save_path is not None:
         with open(save_path, 'w') as f:
             f.write(html)
