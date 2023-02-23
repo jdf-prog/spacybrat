@@ -160,15 +160,15 @@ def get_brat_data(doc, object="dep"):
     cur_pos = 0
     if object in ["dep", 'pos']:
         for token in sent_dict['tokens']:
-            pos = token['pos']
+            pos_tag = token['tag']
             dep = token['dep']
             parent = sent_dict['tokens'][token['parent']]
             # add entities
-            _entity = [f"T{token['idx']}", pos, [[cur_pos, cur_pos + len(token['text'])]]]
+            _entity = [f"T{token['idx']}", pos_tag, [[cur_pos, cur_pos + len(token['text'])]]]
             _entity_type = {
-                "type": pos,
-                "labels": [pos],
-                "bgColor": posColor(pos),
+                "type": pos_tag,
+                "labels": [pos_tag],
+                "bgColor": posColor(pos_tag),
                 "borderColor": "darken"
             }
             entities.append(_entity)
@@ -184,10 +184,10 @@ def get_brat_data(doc, object="dep"):
                     "type": dep,
                     "labels": [dep],
                     "dashArray": "3,3",
-                    "color": posColor(pos),
+                    "color": posColor(pos_tag),
                     "args": [
-                        {"role": "head", "targets": [pos]},
-                        {"role": "child", "targets": [pos]}
+                        {"role": "head", "targets": [pos_tag]},
+                        {"role": "child", "targets": [pos_tag]}
                     ]
                 }
                 relations.append(_relation)
